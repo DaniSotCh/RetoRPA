@@ -16,7 +16,7 @@ export default class ListPlan extends React.Component {
     }
     render() {
         return (
-            <List alignItems="flex-start">
+            <List className='list-center'>
                 <ListItem>
                     <ListItemIcon><CheckIcon /></ListItemIcon>
                     <ListItemText
@@ -26,7 +26,7 @@ export default class ListPlan extends React.Component {
                 <ListItem>
                     <ListItemIcon><CheckIcon /></ListItemIcon>
                     <ListItemText
-                        primary="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+                        primary={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
                     //secondary='Secondary text'
                     />
                 </ListItem>
