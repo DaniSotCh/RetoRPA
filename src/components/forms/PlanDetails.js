@@ -18,7 +18,7 @@ export default class PlanDetails extends React.Component {
     };
 
     onPlanCkick = (event) => {
-        let type = this.state.planCheck ? 'standar' : 'premium';
+        let type = !this.state.planCheck ? 'standar' : 'premium';
         this.props.onPlanClick(type);
     }
 
@@ -52,7 +52,7 @@ export default class PlanDetails extends React.Component {
                         </Grid>
                     </CardContent>
                     <CardActions>
-                        <Button size="large" onClick={this.onPlanCkick}>SUSCRIBIRME</Button>
+                        <Button size="small" onClick={this.onPlanCkick}>SUSCRIBIRME</Button>
                     </CardActions>
                 </Card>
             </Typography>

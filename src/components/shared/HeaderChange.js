@@ -7,7 +7,7 @@ export default class HeaderChange extends React.Component {
     render() {
         return (
             <div>
-                <AppBar position="static" className='txt-center'>
+                <AppBar position="static" className='items-center'>
                     <Toolbar>
                         <Typography variant="h6">
                             Mag.

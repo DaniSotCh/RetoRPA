@@ -6,6 +6,9 @@ export default class ListPlan extends React.Component {
     state = {
         planCheck: false
     }
+    componentDidMount() {
+        this.setState({ planCheck: this.props.planCheck })
+    }
     componentDidUpdate(prev) {
         if (prev.planCheck !== this.props.planCheck) {
             this.setState({ planCheck: this.props.planCheck })
