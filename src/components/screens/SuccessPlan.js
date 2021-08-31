@@ -16,7 +16,7 @@ export default class SuccessPlan extends React.Component {
     render() {
         return (
             <div>
-                <Grid container spacing={3} className='txt-center' >
+                <Grid container className='txt-center' >
                     <Grid item xs={12} md={12}>
                         <CheckCircleIcon className='icon-size mg-20' />
                         <Typography >{'Bienvenido, has adquirido el'}</Typography>

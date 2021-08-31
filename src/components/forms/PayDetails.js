@@ -1,6 +1,6 @@
-import { Button, Card, CardActions, CardContent, Drawer, Grid, InputLabel, OutlinedInput, Typography } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, Drawer, Grid, InputLabel, Modal, OutlinedInput, Typography } from '@material-ui/core';
 import React from 'react';
-import { formatToCurrency } from '../resources/PackageHelper';
+import { formatToCurrency, formatValidInputClass, validInputClass } from '../resources/PackageHelper';
 import ListPlan from '../shared/ListPlan';
 import ReactInputMask from 'react-input-mask';
 
@@ -19,7 +19,8 @@ export default class PayDetails extends React.Component {
             cardNumber: true,
             expirateDate: true,
             cvc: true,
-        }
+        },
+        showModal: false
     }
 
     componentDidMount() {
@@ -46,8 +47,36 @@ export default class PayDetails extends React.Component {
         });
     };
 
+    isValid = () => {
+        let fields = [
+            validInputClass(this.state.name),
+            validInputClass(this.state.cardNumber),
+            validInputClass(this.state.expirateDate),
+            validInputClass(this.state.cvc),
+        ]
+        let valid = true;
+        fields.forEach((value) => {
+            if (!value) {
+                valid = false;
+            }
+        });
+        this.setState({
+            validates: {
+                name: validInputClass(this.state.name),
+                cardNumber: validInputClass(this.state.cardNumber),
+                expirateDate: validInputClass(this.state.expirateDate),
+                cvc: validInputClass(this.state.cvc),
+            }
+        });
+        return valid;
+    }
+
     onPayCkick = () => {
-        this.props.onPayCkick();
+        if (this.isValid()) {
+            this.props.onPayCkick();
+        } else {
+            this.setState({ showModal: true });
+        }
     }
     viewDetails = () => {
         this.setState({ viewDetails: true });
@@ -62,38 +91,77 @@ export default class PayDetails extends React.Component {
         let amount = this.state.planCheck ? 29 : 59;
         this.props.onChangePlan(amount, planChange);
     }
+    updateName = (event) => {
+        this.setState({
+            name: event.target.value,
+            validates: { ...this.state.validates, name: true }
+        })
+    }
+    updateCardNumber = (event) => {
+        this.setState({
+            cardNumber: event.target.value,
+            validates: { ...this.state.validates, cardNumber: true }
+        })
+    }
+    updateExpirateDate = (event) => {
+        this.setState({
+            expirateDate: event.target.value,
+            validates: { ...this.state.validates, expirateDate: true }
+        })
+    }
+    updateCVC = (event) => {
+        this.setState({
+            cvc: event.target.value,
+            validates: { ...this.state.validates, cvc: true }
+        })
+    }
+    handleClose = () => {
+        this.setState({ showModal: false })
+    }
     render() {
         let titlePlan = !this.state.planCheck ? 'Plan Estandar' : 'Plan Premium';
         let planChange = this.state.planCheck ? 'estandar' : 'premium';
         return (
             <Typography component="div">
+                <Modal
+                    open={this.state.showModal}
+                    onClose={this.handleClose}
+                >
+                    <div className='modal-error'>
+                        <h2 id="spring-modal-title">Error</h2>
+                        <p id="spring-modal-description">Por favor, complete todos los campos.</p>
+                    </div>
+                </Modal>
                 <Card className={'no-outlined pt-40'}>
                     <CardContent className='mg-15'>
                         <Grid container spacing={1}>
                             <Grid item xs={12} md={12}>
                                 <InputLabel >Nombre y Apellidos</InputLabel>
-                                <OutlinedInput id="component-outlined" value={this.state.name}/>
+                                <OutlinedInput id="component-outlined" className={formatValidInputClass(this.state.validates.name)} value={this.state.name} onChange={this.updateName} />
                             </Grid>
                             <Grid item xs={12} md={12}>
                                 <InputLabel >Número de tarjeta</InputLabel>
                                 <ReactInputMask
                                     mask="999 999 9999 9999"
                                     value={this.state.cardNumber}
-                                >{() => <OutlinedInput />}</ReactInputMask>
+                                    onChange={this.updateCardNumber}
+                                >{() => <OutlinedInput className={formatValidInputClass(this.state.validates.cardNumber)}/>}</ReactInputMask>
                             </Grid>
                             <Grid item xs={6} md={6}>
                                 <InputLabel >F. Expira</InputLabel>
                                 <ReactInputMask
                                     mask="99 / 99"
                                     value={this.state.expirateDate}
-                                >{() => <OutlinedInput />}</ReactInputMask>
+                                    onChange={this.updateExpirateDate}
+                                >{() => <OutlinedInput className={formatValidInputClass(this.state.validates.expirateDate)}/>}</ReactInputMask>
                             </Grid>
                             <Grid item xs={6} md={6}>
                                 <InputLabel >CVC</InputLabel>
                                 <ReactInputMask
                                     mask="999"
                                     value={this.state.cvc}
-                                >{() => <OutlinedInput />}</ReactInputMask>
+                                    onChange={this.updateCVC}
+                                >{() => <OutlinedInput className={formatValidInputClass(this.state.validates.cvc)}/>}</ReactInputMask>
                             </Grid>
                         </Grid>
                     </CardContent>
@@ -121,7 +189,7 @@ export default class PayDetails extends React.Component {
                                 <Grid item xs={12} md={12} alignContent='center' className='mg-15'>
                                     <Typography>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</Typography>
                                     <ListPlan planCheck={this.state.planCheck} />
-                                <Button onClick={this.changePlan}><label className='txt-button'>{'Cambiar a Plan ' + planChange}</label></Button>
+                                    <Button onClick={this.changePlan}><label className='txt-button'>{'Cambiar a Plan ' + planChange}</label></Button>
                                 </Grid>
                             </Grid>
                         </Drawer>

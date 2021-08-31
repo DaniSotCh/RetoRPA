@@ -37,7 +37,7 @@ export default class SuscriptionScreen extends React.Component {
     render() {
         return (
             <div>
-                <HeaderChange />
+                <HeaderChange suscriptionPlan={!(this.state.onClick && !this.state.successPlan)} goHome={this.goHome}/>
                 {(!this.state.onClick && !this.state.successPlan) && <PlanDetails onPlanClick={this.onPlanCkick} onChangeAmount={this.onChangeAmount} />}
                 {(this.state.onClick && !this.state.successPlan) && <PayDetails planType={this.state.planType} amount={this.state.amount} onChangePlan={this.onChangePlan} onPayCkick={this.onPayCkick} />}
                 {this.state.successPlan && <SuccessPlan goHome={this.goHome} planType={this.state.planType} amount={this.state.amount}/>}
