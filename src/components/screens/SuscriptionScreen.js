@@ -2,7 +2,6 @@ import React from 'react';
 import HeaderChange from '../shared/HeaderChange';
 import PlanDetails from '../forms/PlanDetails';
 import PayDetails from '../forms/PayDetails';
-import { Button, Drawer } from '@material-ui/core';
 import SuccessPlan from './SuccessPlan';
 
 export default class SuscriptionScreen extends React.Component {

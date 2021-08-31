@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, CardHeader, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Switch, Typography } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, CardHeader, Divider, Grid, Switch, Typography } from '@material-ui/core';
 import React from 'react';
 import CheckIcon from '@material-ui/icons/Check';
 import ListPlan from '../shared/ListPlan';
