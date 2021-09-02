@@ -8,9 +8,12 @@ function SuccessPlan(props) {
     const [amount, setAmount] = useState(29);
 
     useEffect(() => {
-        setPlanType(props.planType !== 'standar' ? 'Premium' : 'Estandar');
         setAmount(props.amount);
-    }, []);
+    }, [props.amount]);
+
+    useEffect(() => {
+        setPlanType(props.planType !== 'standar' ? 'Premium' : 'Estandar');
+    }, [props.planType]);
 
     const goHome = () => {
         props.goHome();
