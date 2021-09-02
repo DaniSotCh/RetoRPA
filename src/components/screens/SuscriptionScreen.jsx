@@ -35,10 +35,7 @@ function SuscriptionScreen() {
         <div>
             <HeaderChange suscriptionPlan={!(onClick && !successPlan)} goHome={goHome} />
             <Router>
-                {["/", "/suscripcion"].map(page =>
-                    <PlanDetails path={page} onPlanClick={onPlanCkick} onChangeAmount={onChangeAmount} />
-                )}
-                
+                <PlanDetails path="/" onPlanClick={onPlanCkick} onChangeAmount={onChangeAmount} />
                 <PayDetails path="/datos" planType={planType} amount={amount} onChangePlan={onChangePlan} onPayCkick={onPayCkick} />
                 <SuccessPlan path="/confirmacion" goHome={goHome} planType={planType} amount={amount} />
             </Router>

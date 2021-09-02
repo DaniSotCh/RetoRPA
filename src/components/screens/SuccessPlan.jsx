@@ -17,7 +17,7 @@ function SuccessPlan(props) {
 
     const goHome = () => {
         props.goHome();
-        window.location.href = '/suscripcion';
+        window.location.href = '/';
     }
 
     return (
