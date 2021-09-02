@@ -3,6 +3,7 @@ import HeaderChange from '../shared/HeaderChange';
 import PlanDetails from '../forms/PlanDetails';
 import PayDetails from '../forms/PayDetails';
 import SuccessPlan from './SuccessPlan';
+import { Router } from "@reach/router"
 
 function SuscriptionScreen() {
     const [onClick, setOnClick] = useState(false);
@@ -33,9 +34,14 @@ function SuscriptionScreen() {
     return (
         <div>
             <HeaderChange suscriptionPlan={!(onClick && !successPlan)} goHome={goHome} />
-            {(!onClick && !successPlan) && <PlanDetails onPlanClick={onPlanCkick} onChangeAmount={onChangeAmount} />}
-            {(onClick && !successPlan) && <PayDetails planType={planType} amount={amount} onChangePlan={onChangePlan} onPayCkick={onPayCkick} />}
-            {successPlan && <SuccessPlan goHome={goHome} planType={planType} amount={amount} />}
+            <Router>
+                {["/", "/suscripcion"].map(page =>
+                    <PlanDetails path={page} onPlanClick={onPlanCkick} onChangeAmount={onChangeAmount} />
+                )}
+                
+                <PayDetails path="/datos" planType={planType} amount={amount} onChangePlan={onChangePlan} onPayCkick={onPayCkick} />
+                <SuccessPlan path="/confirmacion" goHome={goHome} planType={planType} amount={amount} />
+            </Router>
         </div>
     );
 }

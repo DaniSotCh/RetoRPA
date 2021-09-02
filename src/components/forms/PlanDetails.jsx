@@ -15,6 +15,7 @@ function PlanDetails(props) {
 
     const onPlanCkick = (event) => {
         props.onPlanClick(!planCheck ? 'standar' : 'premium');
+        props.navigate('/datos');
     }
 
     return (

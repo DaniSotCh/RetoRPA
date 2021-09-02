@@ -54,6 +54,7 @@ function PayDetails(props) {
     const onPayCkick = () => {
         if (isValid()) {
             props.onPayCkick();
+            props.navigate('/confirmacion');
         } else {
             setShowModal(true);
         }

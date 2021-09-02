@@ -12,6 +12,11 @@ function SuccessPlan(props) {
         setAmount(props.amount);
     }, []);
 
+    const goHome = () => {
+        props.goHome();
+        window.location.href = '/suscripcion';
+    }
+
     return (
         <div>
             <Grid container className='txt-center' >
@@ -25,7 +30,7 @@ function SuccessPlan(props) {
                     <Typography>{'Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.Lorem Ipsum is simply dummy text of the printing and typesetting industry.'}</Typography>
                 </Grid>
                 <Grid item xs={12} md={12} className='mg-20'>
-                    <Button onClick={props.goHome}><label className='txt-button'>{'Ir a ver mi plan'}</label></Button>
+                    <Button onClick={goHome}><label className='txt-button'>{'Ir a ver mi plan'}</label></Button>
                 </Grid>
             </Grid>
         </div>
